@@ -1,0 +1,12 @@
+/*resources/scss/app.scss*/
+@import "~bootstrap/scss/bootstrap";
+
+// My Style
+body {
+    background-color: grey;
+    color: white;
+    height: 100vh;
+
+    display: grid;
+    place-items: center;
+}
