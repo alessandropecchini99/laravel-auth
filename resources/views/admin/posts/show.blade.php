@@ -8,4 +8,7 @@
     <img src="{{ $post->url_image }}" alt="{{ $post->title }}">
     <p>{{ $post->content }}</p>
 
+
+    <a class="btn btn-secondary" href="/admin/posts">Back</a>
+
 @endsection
