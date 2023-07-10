@@ -11,10 +11,10 @@
             {{-- conferma delete --}}
             @if (session('delete_success'))
                 @php $post = session('delete_success') @endphp
-                <div class="alert alert-danger m-0">
+                <div class="alert alert-danger m-0 mb-3">
                     "{{ $post->title }}" Deleted
                     <form
-                        action="{{ route(".posts.restore", ['post' => $post]) }}"
+                        action="{{ route("admin.posts.restore", ['post' => $post]) }}"
                         method="post"
                         class="d-inline-block restore-btn"
                     >
@@ -51,7 +51,7 @@
                             <a class="btn btn-primary" href="{{ route('admin.posts.show', ['post' => $post->id]) }}">View</a>
                             <a class="btn btn-warning" href="{{ route('admin.posts.edit', ['post' => $post->id]) }}">Edit</a>
                             <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-danger js-delete" data-bs-toggle="modal" data-bs-target="#Delete" data-id="{{ $post->id }}">
+                            <button type="button" class="btn btn-danger myModal" data-bs-toggle="modal" data-bs-target="#myInput" data-id="{{ $post->id }}">
                                 Delete
                             </button>
                         </td>
@@ -77,29 +77,32 @@
             </a> --}}
         </div>
 
-        <!-- Modal -->
-        <div class="modal fade" id="Delete" tabindex="-1" aria-labelledby="DeleteLabel" aria-hidden="true" style="color:black;">
+         <!-- Modal -->
+        <div class="modal fade w-100" id="myInput" tabindex="-1" aria-labelledby="myInput" aria-hidden="true" style=" color:black;">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="DeleteLabel">Are you sure?</h1>
+                        <h5 class="modal-title">Are you sure?</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                <div class="modal-body">
-                    You can't go back from this!
-                </div>
+                    <div class="modal-body">
+                        This will permanently delete it!
+                    </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back</button>
+
                         <form
-                            action="{{ route('admin.posts.destroy', ['post' => $post->id]) }}"
+                            action="{{ route("admin.posts.destroy", ['post' => '***']) }}"
+                            {{-- action="http://localhost:8000/admin/posts/0/destroy" --}}
                             method="post"
                             class="d-inline-block"
-                            id="btn-confirm-delete"
+                            id="myForm"
                         >
                             @csrf
                             @method('delete')
-                            <button class="btn btn-danger">Confirm</button>
+                            <button class="btn btn-danger">Delete</button>
                         </form>
+                        
                     </div>
                 </div>
             </div>

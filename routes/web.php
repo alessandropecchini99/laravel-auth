@@ -23,7 +23,8 @@ Route::middleware(['auth', 'verified'])
     ->name('admin.')
     ->prefix('admin')
     ->group(function () {
-        Route::get('/', [AdminPageController::class, 'dashboard'])->name('dashboard');
+        Route::get('/',                 [AdminPageController::class, 'dashboard'])->name('dashboard');
+        Route::post('posts/{post}/restore',   [PostController::class, 'restore'])->name('posts.restore');
         Route::resource('posts', PostController::class);
     });
 

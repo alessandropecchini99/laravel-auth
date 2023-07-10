@@ -131,8 +131,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        $post->delete();
-
+        $post->delete(); // se settiamo in model e in migrate il softdelete, cambia in automatico
         return to_route('admin.posts.index')->with('delete_success', $post);
     }
 
@@ -145,5 +144,13 @@ class PostController extends Controller
         $post = Post::find($id);
 
         return to_route('admin.posts.index')->with('restore_success', $post);
+    }
+
+    public function harddelete($id)
+    {
+        $post = Post::find($id);
+        $post->forceDelete();
+
+        return to_route('admin.posts.index')->with('delete_success', $post);
     }
 }
