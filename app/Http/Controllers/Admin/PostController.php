@@ -132,7 +132,7 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $post->delete(); // se settiamo in model e in migrate il softdelete, cambia in automatico
-        return to_route('admin.posts.index')->with('delete_success', $post);
+        return to_route('admin.posts.index')->with('softdelete_success', $post);
     }
 
     public function restore($id)
@@ -146,11 +146,22 @@ class PostController extends Controller
         return to_route('admin.posts.index')->with('restore_success', $post);
     }
 
+    public function trashed()
+    {
+        $trashedPosts = Post::onlyTrashed()->paginate(5); // SELECT * FROM 'posts'
+
+        return view('admin.posts.trashed', compact('trashedPosts'));
+        // OR
+        // return view('posts.trashed', [
+        //     'posts' => $trashedPosts,
+        // ]);
+    }
+
     public function harddelete($id)
     {
-        $post = Post::find($id);
+        $post = Post::withTrashed()->find($id);
         $post->forceDelete();
 
-        return to_route('admin.posts.index')->with('delete_success', $post);
+        return to_route('admin.posts.index')->with('harddelete_success', $post);
     }
 }

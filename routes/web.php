@@ -23,8 +23,10 @@ Route::middleware(['auth', 'verified'])
     ->name('admin.')
     ->prefix('admin')
     ->group(function () {
-        Route::get('/',                 [AdminPageController::class, 'dashboard'])->name('dashboard');
-        Route::post('posts/{post}/restore',   [PostController::class, 'restore'])->name('posts.restore');
+        Route::get('/',                             [AdminPageController::class, 'dashboard'])->name('dashboard');
+        Route::get('/posts/trashed',                 [PostController::class, 'trashed'])->name('posts.trashed');
+        Route::post('/posts/{post}/restore',         [PostController::class, 'restore'])->name('posts.restore');
+        Route::delete('/posts/{post}/harddelete',    [PostController::class, 'harddelete'])->name('posts.harddelete');
         Route::resource('posts', PostController::class);
     });
 
@@ -32,9 +34,9 @@ Route::middleware('auth')
     ->name('admin.')
     ->prefix('admin')
     ->group(function () {
-        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+        Route::get('/profile',      [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile',    [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/profile',   [ProfileController::class, 'destroy'])->name('profile.destroy');
     });
 
 require __DIR__ . '/auth.php';

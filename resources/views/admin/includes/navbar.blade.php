@@ -27,7 +27,7 @@
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{{ route('admin.posts.index') }}">Index</a></li>
                         <li><a class="dropdown-item" href="{{ route('admin.posts.create') }}">Add Post</a></li>
-                        <li><a class="dropdown-item" href="#">Trash Can</a></li>
+                        <li><a class="dropdown-item" href="{{ route('admin.posts.trashed') }}">Trash Can</a></li>
                         {{-- <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="#">Something else here</a></li> --}}
                     </ul>
